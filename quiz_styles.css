@@ -1,0 +1,22 @@
+
+body {
+	background-image: linear-gradient(0deg, rgb(215,160,130) 11%, rgb(233,187,161) 22%, rgb(248,220,199) 33%, rgb(149,190,172) 66%, rgb(68,157,151));
+	background-repeat: no-repeat; 
+}
+
+.header-bar {
+	width: 100%;
+	height: 15%;
+}
+
+@media (max-width: 768px) {     .content-lane {         width: 100%;     } }
+
+.content-lane {
+	height: 100%;
+	width: 66%;
+	margin: 0 16%;
+	background-color: white;
+	box-shadow: 0 0 2px 1px rgba(0,0,0,0.4);
+	border-radius: 5px;
+	padding: 30px;
+}
