@@ -74,7 +74,5 @@ function selectInitialElement() {
 
 processCharacters(charData);
 processQuestions(questionData);
-
 constructDom();
-
 selectInitialElement();
