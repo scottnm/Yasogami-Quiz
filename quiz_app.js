@@ -62,7 +62,7 @@ function constructDom() {
 			answerContainer.appendChild(answerWrapper);
 		}
 		questionContainer.appendChild(answerContainer);
-		document.querySelector('.content-lane').appendChild(questionContainer);
+		document.querySelector('.question-lane').appendChild(questionContainer);
 	}	
 }
 
