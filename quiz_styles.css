@@ -17,9 +17,11 @@ body {
 .content-lane {
 	width: 66%;
 	margin: 0 16%;
+	position: relative;
 }
 
 .content-lane .question{
+	position: absolute;
 	background-color: white;
 	box-shadow: 0 0 30px 5px rgba(0,0,0,0.4);
 	border-radius: 5px;
@@ -27,6 +29,20 @@ body {
 	margin-bottom: 30px;
 	font-size: 18px;
 	font-weight: 400;
+	transition: all 1.0s ease;
+	transition-property: opacity, transform;
+}
+
+.content-lane .question[data-state="prev"],
+.content-lane .question[data-state="next"] {
+	/*display: none;*/
+	transform: translateX(-100px);
+	opacity: 0;
+}
+
+.content-lane .question[data-state="active"] {
+	position: relative;
+	opacity: 1.0;
 }
 
 .content-lane .question > div {

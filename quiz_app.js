@@ -1,5 +1,6 @@
 'use strict';
 
+var currentQuestion = null;
 var characters = [];
 var questions = [];
 
@@ -38,6 +39,8 @@ function constructDom() {
 		var question = questions[i];
 		var questionContainer = document.createElement('div');
 		questionContainer.classList.add('question');
+		questionContainer.setAttribute('data-state', 'prev');
+		questionContainer.setAttribute('id', i);
 		var questionNumber = document.createElement('h3');
 		questionContainer.appendChild(questionNumber);
 		questionNumber.innerText = 'Question ' + (Number(i)+1);
@@ -48,9 +51,9 @@ function constructDom() {
 		for (var j in question.answers) {
 			var answerWrapper = document.createElement('div');
 			var answerChoice = document.createElement('input');
-			answerChoice.type = 'radio';
-			answerChoice.name = '' + i;
-			answerChoice.id = i + '_' + j;
+			answerChoice.setAttribute('type', 'radio');
+			answerChoice.setAttribute('name', i);
+			answerChoice.setAttribute('id', i + '_' + j);
 			var answerText = document.createElement('span');
 			answerText.innerHTML = question.answers[j];
 			answerWrapper.appendChild(answerChoice);
@@ -63,7 +66,15 @@ function constructDom() {
 	}	
 }
 
+function selectInitialElement() {
+	var index = Math.floor(Math.random() * (questions.length));
+	var currentQuestion = document.getElementById(''+index);
+	currentQuestion.setAttribute('data-state', 'active');
+}
+
 processCharacters(charData);
 processQuestions(questionData);
 
 constructDom();
+
+selectInitialElement();
