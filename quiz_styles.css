@@ -39,8 +39,15 @@ body {
 .content-lane .question-lane .question[data-state="prev"],
 .content-lane .question-lane .question[data-state="next"] {
 	display: none;
-	transform: translateX(-100px);
 	opacity: 0;
+}
+
+.content-lane .question-lane .question[data-state="prev"] {
+	transform: translateX(-100px);
+}
+
+.content-lane .question-lane .question[data-state="next"] {
+	transform: translateX(100px);
 }
 
 .content-lane .question-lane .question[data-state="active"] {

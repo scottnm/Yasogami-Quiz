@@ -1,9 +1,5 @@
 'use strict';
 
-var currentQuestion = null;
-var characters = [];
-var questions = [];
-
 var Character = function(name, description, percentageThreshold, image) {
 	this.name = name;
 	this.description = description;
@@ -35,12 +31,22 @@ var processQuestions = function(questionJSON) {
 	}
 };
 
+var currentQuestion = null;
+var characters = [];
+var questions = [];
+var questionPrevCount = 0;
+var questionNextCount = 0;
+var prevButton = document.querySelector('button#prev');
+prevButton.addEventListener('click', prevButtonHandler);
+var nextButton = document.querySelector('button#next');
+nextButton.addEventListener('click', nextButtonHandler);
+
 function constructDom() {
 	for(var i in questions) {
 		var question = questions[i];
 		var questionContainer = document.createElement('div');
 		questionContainer.classList.add('question');
-		questionContainer.setAttribute('data-state', 'prev');
+		questionContainer.setAttribute('data-state', 'next');
 		questionContainer.setAttribute('id', i);
 		var questionNumber = document.createElement('h3');
 		questionContainer.appendChild(questionNumber);
@@ -65,7 +71,8 @@ function constructDom() {
 		questionContainer.appendChild(answerContainer);
 		document.querySelector('.question-lane').appendChild(questionContainer);
 		questions[i].element = questionContainer;
-	}	
+	}
+	questionNextCount = questions.length;
 }
 
 function shuffleQuestions() {
@@ -80,6 +87,25 @@ function shuffleQuestions() {
 function selectInitialElement() {	
 	var currentQuestion = questions[0].element;
 	currentQuestion.setAttribute('data-state', 'active');
+	questionNextCount -= 1;
+}
+
+function prevButtonHandler() {
+	questionNextCount += 1;
+	questionPrevCount -= 1;
+	if (!questionPrevCount) {
+		prevButton.disabled = true;
+	}
+	nextButton.disabled = false;
+}
+
+function nextButtonHandler() {	
+	questionNextCount -= 1;
+	questionPrevCount += 1;
+	if (!questionNextCount) {
+		nextButton.disabled = true;
+	}
+	prevButton.disabled = false;
 }
 
 processCharacters(charData);
@@ -87,3 +113,4 @@ processQuestions(questionData);
 shuffleQuestions();
 constructDom();
 selectInitialElement();
+
