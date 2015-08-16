@@ -37,6 +37,10 @@ function constructDom() {
 	for(var i in questions) {
 		var question = questions[i];
 		var questionContainer = document.createElement('div');
+		questionContainer.classList.add('question');
+		var questionNumber = document.createElement('h3');
+		questionContainer.appendChild(questionNumber);
+		questionNumber.innerText = 'Question ' + (Number(i)+1);
 		var questionHeader = document.createElement('h2');
 		questionHeader.innerText = question.question;
 		questionContainer.appendChild(questionHeader);

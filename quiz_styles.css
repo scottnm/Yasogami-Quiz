@@ -9,16 +9,26 @@ body {
 	font-size: 36px;
 	font-weight: 700px;
 	color: white;
+	padding: 30px;
 }
 
 @media (max-width: 768px) {     .content-lane {         width: 100%;     } }
 
 .content-lane {
-	height: 100%;
 	width: 66%;
 	margin: 0 16%;
+}
+
+.content-lane .question{
 	background-color: white;
-	box-shadow: 0 0 2px 1px rgba(0,0,0,0.4);
+	box-shadow: 0 0 30px 5px rgba(0,0,0,0.4);
 	border-radius: 5px;
 	padding: 30px;
+	margin-bottom: 30px;
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.content-lane .question > div {
+	margin-left: 30px;
 }
