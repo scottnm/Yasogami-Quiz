@@ -1,13 +1,14 @@
-{
-	"months": [
+var questionData = {
+	"months": {
+		
 		"April": [
 			{
 				"question": "What is the year before 1 A.D. called?",
 				"answers": [
 					"0 A.D.",
 					"0 B.C.",
-					"Stardate 0"
-					"1 B.C.",
+					"Stardate 0",
+					"1 B.C."
 				],
 				"correctIndex": "3"
 			},
@@ -63,6 +64,7 @@
 			}
 		],
 
+	
 		"May": [
 			{
 				"question": "How did Soseki Natsume translate the English phrase 'I Love You' into Japanese?",
@@ -116,7 +118,8 @@
 			}
 
 		],
-
+	
+	
 		"June": [
 		   {
 				"question": "What sport is 'heikin-dai'?",
@@ -177,9 +180,9 @@
 					"The lazy river"
 				],
 				"correctIndex": "1"
-			},
+			}
 		],
-
+	
 		"July": [
 			{
 				"question": "What is the beginning of 'Gakumon no Susume' a reference to?",
@@ -230,7 +233,7 @@
 					"Da Vinci"
 				],
 				"correctIndex": "2"
-			},
-		],
-	]
-}
+			}
+		]
+	}
+};

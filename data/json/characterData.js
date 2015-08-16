@@ -1,4 +1,4 @@
-{
+var charData = {
 	"characters": [
 		{
 			"name": "Teddy",
@@ -47,6 +47,6 @@
 			"description": "Outstanding scores. I have nothing more to say than outstanding. You really are a prodigy. Congratulations!",
 			"percentageThreshold": "100",
 			"image": ""
-		},
+		}
 	]
-}
+};
