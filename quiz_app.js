@@ -32,10 +32,9 @@ var processQuestions = function(questionJSON) {
 };
 
 var currentQuestion = null;
+var currentQuestionIndex = 0;
 var characters = [];
 var questions = [];
-var questionPrevCount = 0;
-var questionNextCount = 0;
 var prevButton = document.querySelector('button#prev');
 prevButton.addEventListener('click', prevButtonHandler);
 var nextButton = document.querySelector('button#next');
@@ -69,10 +68,12 @@ function constructDom() {
 			answerContainer.appendChild(answerWrapper);
 		}
 		questionContainer.appendChild(answerContainer);
+		questionContainer.addEventListener('transitionend', function(e) {
+			e.target.setAttribute('data-hidden', 'true');
+		});
 		document.querySelector('.question-lane').appendChild(questionContainer);
 		questions[i].element = questionContainer;
 	}
-	questionNextCount = questions.length;
 }
 
 function shuffleQuestions() {
@@ -85,27 +86,34 @@ function shuffleQuestions() {
 }
 
 function selectInitialElement() {	
-	var currentQuestion = questions[0].element;
+	currentQuestion = questions[0].element;
 	currentQuestion.setAttribute('data-state', 'active');
-	questionNextCount -= 1;
+	currentQuestionIndex = 0;
 }
 
 function prevButtonHandler() {
-	questionNextCount += 1;
-	questionPrevCount -= 1;
-	if (!questionPrevCount) {
+	currentQuestion.setAttribute('data-state', 'next');
+	currentQuestionIndex -= 1;
+	currentQuestion = questions[currentQuestionIndex].element;
+	currentQuestion.removeAttribute('data-hidden');
+	currentQuestion.setAttribute('data-state', 'active');
+	if (!currentQuestionIndex) {
 		prevButton.disabled = true;
 	}
 	nextButton.disabled = false;
 }
 
-function nextButtonHandler() {	
-	questionNextCount -= 1;
-	questionPrevCount += 1;
-	if (!questionNextCount) {
+function nextButtonHandler() {
+	currentQuestion.setAttribute('data-state', 'prev');
+	currentQuestionIndex += 1;
+	currentQuestion = questions[currentQuestionIndex].element;
+	currentQuestion.removeAttribute('data-hidden');
+	currentQuestion.setAttribute('data-state', 'active');	
+	if (currentQuestionIndex ===  (questions.length - 1)) {
 		nextButton.disabled = true;
 	}
 	prevButton.disabled = false;
+	
 }
 
 processCharacters(charData);

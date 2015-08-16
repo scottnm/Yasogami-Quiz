@@ -26,6 +26,7 @@ body {
 
 .content-lane .question-lane .question{
 	position: absolute;
+	width: 100%;
 	background-color: white;
 	box-shadow: 0 0 30px 5px rgba(0,0,0,0.4);
 	border-radius: 5px;
@@ -38,7 +39,6 @@ body {
 
 .content-lane .question-lane .question[data-state="prev"],
 .content-lane .question-lane .question[data-state="next"] {
-	display: none;
 	opacity: 0;
 }
 
@@ -50,8 +50,13 @@ body {
 	transform: translateX(100px);
 }
 
+.content-lane .question-lane .question[data-state="prev"][data-hidden="true"],
+.content-lane .question-lane .question[data-state="next"][data-hidden="true"] {
+	display: none;
+}
+
 .content-lane .question-lane .question[data-state="active"] {
-	position: relative;
+	transform: translateX(0px);
 	opacity: 1.0;
 }
 
