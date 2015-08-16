@@ -1,7 +1,10 @@
 
 body {
-	background-image: linear-gradient(0deg, rgb(215,160,130) 11%, rgb(233,187,161) 22%, rgb(248,220,199) 33%, rgb(149,190,172) 66%, rgb(68,157,151));
-	background-repeat: no-repeat; 
+	background: linear-gradient(0deg, rgb(215,160,130) 11%, rgb(233,187,161) 22%, rgb(248,220,199) 33%, rgb(149,190,172) 66%, rgb(68,157,151))
+				no-repeat
+				center
+				center
+				fixed;
 }
 
 .header-bar {
@@ -35,7 +38,7 @@ body {
 
 .content-lane .question[data-state="prev"],
 .content-lane .question[data-state="next"] {
-	/*display: none;*/
+	display: none;
 	transform: translateX(-100px);
 	opacity: 0;
 }
