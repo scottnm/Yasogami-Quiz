@@ -16,6 +16,7 @@ var Question = function(month, question, answers, correctIndex) {
 	this.question = question;
 	this.answers = answers;
 	this.correctIndex = correctIndex;
+	this.element = null;
 }
 
 var processCharacters = function(charJSON) {
@@ -63,16 +64,26 @@ function constructDom() {
 		}
 		questionContainer.appendChild(answerContainer);
 		document.querySelector('.question-lane').appendChild(questionContainer);
+		questions[i].element = questionContainer;
 	}	
 }
 
-function selectInitialElement() {
-	var index = Math.floor(Math.random() * (questions.length));
-	var currentQuestion = document.getElementById(''+index);
+function shuffleQuestions() {
+	var tempArr = [];
+	while (questions.length) {
+		var shuffleIndex = Math.floor(Math.random() * questions.length);
+		tempArr.push(questions.splice(shuffleIndex, 1)[0]);
+	}
+	questions = tempArr;
+}
+
+function selectInitialElement() {	
+	var currentQuestion = questions[0].element;
 	currentQuestion.setAttribute('data-state', 'active');
 }
 
 processCharacters(charData);
 processQuestions(questionData);
+shuffleQuestions();
 constructDom();
 selectInitialElement();
