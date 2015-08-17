@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Yasogami Final Exam Prep</title>
+		<link rel="stylesheet" type="text/css" href="quiz_styles.css">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1,
+			maximum-scale=1, user-scalable=no"/>
+	</head>
+	<body>
+		<div class="content-lane">
+			<div class="header-bar">
+				Yasogami High School Exam Prep
+			</div>
+			
+			<div class="button-bar">
+				<div>
+					<button type="button" id="prev" class="btn" disabled>
+						<span class="glyphicon glyphicon-chevron-left"></span>Prev
+					</button>
+				</div>
+				
+				<div>
+					<button type="button" id="submit" class="btn" disabled>
+						<span class="glyphicon glyphicon-ok"></span>Submit
+					</button>
+				</div>
+				
+				<div>
+					<button type="button" id="next" class="btn">
+						Next<span class="glyphicon glyphicon-chevron-right"></span>
+					</button>
+				</div>
+			</div>
+		
+			<div class="question-lane"></div>
+		</div>
+		<script type="text/javascript" src="data/json/characterData.js"></script>
+		<script type="text/javascript" src="data/json/questionData.js"></script>
+		<script type="text/javascript" src="quiz_app-compiled.js"></script>
+
+	</body>
+</html>

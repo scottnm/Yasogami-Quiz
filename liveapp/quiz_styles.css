@@ -1,0 +1,112 @@
+
+body {
+	background: linear-gradient(0deg, rgb(215,160,130) 11%, rgb(233,187,161) 22%, rgb(248,220,199) 33%, rgb(149,190,172) 66%, rgb(68,157,151))
+				no-repeat
+				center
+				center
+				fixed;
+}
+
+.header-bar {
+	width: 100%;
+	font-size: 36px;
+	font-weight: 700px;
+	color: white;
+	padding: 30px;
+}
+
+.content-lane {
+	width: 100%;
+	margin: 0;
+}
+
+.content-lane .question-lane {
+	margin-bottom: 15px;
+}
+
+.content-lane .question-lane .question{
+	position: absolute;
+	width: 100%;
+	background-color: white;
+	box-shadow: 0 0 30px 5px rgba(0,0,0,0.4);
+	border-radius: 5px;
+	padding: 30px;
+	font-size: 18px;
+	font-weight: 400;
+	transition: all 1.0s ease;
+	transition-property: opacity, transform;
+}
+
+.content-lane .question-lane .question[data-state="prev"],
+.content-lane .question-lane .question[data-state="next"] {
+	opacity: 0;
+}
+
+.content-lane .question-lane .question[data-state="prev"] {
+	transform: translateX(-100px);
+}
+
+.content-lane .question-lane .question[data-state="next"] {
+	transform: translateX(100px);
+}
+
+.content-lane .question-lane .question[data-state="prev"][data-hidden="true"],
+.content-lane .question-lane .question[data-state="next"][data-hidden="true"] {
+	display: none;
+}
+
+.content-lane .question-lane .question[data-state="active"] {
+	transform: translateX(0px);
+	opacity: 1.0;
+}
+
+.content-lane .question-lane .question > div {
+	margin-left: 30px;
+}
+
+.button-bar {
+	display: flex;
+	margin-bottom: 15px;
+}
+
+.button-bar div {
+	flex: 1;
+	text-align: center;
+}
+
+.button-bar button.btn {
+	background-color: transparent;
+	color: white;
+}
+
+.content-lane .question-lane .result {
+	display: flex;
+}
+
+.content-lane .question-lane .result div#img-container {
+	flex: 1;
+}
+
+.content-lane .question-lane .result div#img-container img {
+	width: 100%;
+}
+
+.content-lane .question-lane .result div#info-container {
+	flex: 2;
+}
+
+@media screen and (min-width: 500px) {
+	.content-lane {
+		width: 462px;
+		position: relative;
+		margin: 0 auto;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.content-lane {
+		width: 66%;
+		margin: 0 16%;
+		position: relative;
+	}
+}
