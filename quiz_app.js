@@ -1,5 +1,14 @@
 'use strict';
 
+/**
+ * @param name {string} The name of the character
+ * @param description {string} The description of the user who identifies with
+ * 	      this character
+ * @param percentageThreshold {number} The upper score limit for this character.
+ * 		  e.g. Teddie's is 12 so scores between 0-12% are Teddie scores.
+ * @param image {string} Url of the image.
+ * @constructor
+ */
 var Character = function(name, description, percentageThreshold, image) {
 	this.name = name;
 	this.description = description;
@@ -7,6 +16,13 @@ var Character = function(name, description, percentageThreshold, image) {
 	this.image = image;
 };
 
+/**
+ * @param month {string} the month this question falls under
+ * @param question {string} The text of the question
+ * @param answers {Array<string>} The text answer choices
+ * @param correctIndex {number} Which answer in the answers array is correct
+ * @constructor
+ */
 var Question = function(month, question, answers, correctIndex) {
 	this.month = month;
 	this.question = question;
@@ -15,6 +31,10 @@ var Question = function(month, question, answers, correctIndex) {
 	this.element = null;
 }
 
+/**
+ * Take all of the data from the character JSON and turn it into an array of
+ * Character objects
+ */
 var processCharacters = function(charJSON) {
 	for (var charIdx in charJSON.characters) {
 		var chr = charJSON.characters[charIdx];
@@ -22,6 +42,10 @@ var processCharacters = function(charJSON) {
 	}
 };
 
+/**
+ * Take all the data from the question JSON and turn it into an array of
+ * Question objects
+ */
 var processQuestions = function(questionJSON) {
 	for (var month in questionJSON.months) {
 		for (var i in questionJSON.months[month]) {
@@ -42,6 +66,10 @@ nextButton.addEventListener('click', nextButtonHandler);
 var submitButton = document.querySelector('button#submit');
 submitButton.addEventListener('click', submitButtonHandler);
 
+/**
+ * Take each of the questions and build them into the DOM
+ * as a question card.
+ */
 function constructDom() {
 	for(var i in questions) {
 		var question = questions[i];
@@ -78,6 +106,10 @@ function constructDom() {
 	}
 }
 
+/**
+ * Shuffle the question array so that on each run of the webpage,
+ * the order of the questions is different.
+ */
 function shuffleQuestions() {
 	var tempArr = [];
 	while (questions.length) {
@@ -87,12 +119,23 @@ function shuffleQuestions() {
 	questions = tempArr;
 }
 
+/**
+ * Choose which element to display first when the page loads.
+ * Currently this is just chosen from the first question
+ */
 function selectInitialElement() {	
 	currentQuestion = questions[0].element;
 	currentQuestion.setAttribute('data-state', 'active');
 	currentQuestionIndex = 0;
 }
 
+/**
+ * When the previous button is clicked,
+ * slide the current card to the right and
+ * slide the previous card from the left.
+ * 
+ * Sliding effect achieved through CSS
+ */
 function prevButtonHandler() {
 	currentQuestion.setAttribute('data-state', 'next');
 	currentQuestionIndex -= 1;
@@ -106,6 +149,13 @@ function prevButtonHandler() {
 	submitButton.disabled = true;
 }
 
+/**
+ * When the next button is clicked,
+ * slide the current card to the left and
+ * slide the next card from the right.
+ * 
+ * Sliding effect achieved through CSS
+ */
 function nextButtonHandler() {
 	currentQuestion.setAttribute('data-state', 'prev');
 	currentQuestionIndex += 1;
@@ -119,6 +169,10 @@ function nextButtonHandler() {
 	prevButton.disabled = false;
 }
 
+/**
+ * When the submit button is clicked,
+ * calculate the user's score and display the results
+ */
 function submitButtonHandler() {
 	debugger;
 	var numCorrect = 0;
@@ -132,6 +186,12 @@ function submitButtonHandler() {
 	constructResultCard(result);
 }
 
+/**
+ * For a single question, determine if the user has selected
+ * the correct choice.
+ * @param question {Question} the question
+ * @return {boolean}
+ */
 function correctAnswer(question) {
 	var choices = question.element.querySelectorAll('input');
 	var guess = -1;
@@ -144,6 +204,12 @@ function correctAnswer(question) {
 	return guess === question.correctIndex;
 }
 
+/**
+ * Given a user's score determine the corresponding character
+ * using each of the character's percentage thresholds.
+ * @param score {number} The score to check against.
+ * @return {Character}
+ */
 function determineCharacter(score) {
 	for (var i in characters) {
 		if (score - characters[i].percentageThreshold <= 0) {
@@ -152,6 +218,10 @@ function determineCharacter(score) {
 	}
 }
 
+/**
+ * Given the resulting character, display an appropriate
+ * results card.
+ */
 function constructResultCard(result) {
 	document.body.remove();
 	console.log(result);
