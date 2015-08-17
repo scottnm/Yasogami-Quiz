@@ -174,7 +174,6 @@ function nextButtonHandler() {
  * calculate the user's score and display the results
  */
 function submitButtonHandler() {
-	debugger;
 	var numCorrect = 0;
 	for(var i in questions) {
 		if(correctAnswer(questions[i])) {
@@ -183,8 +182,16 @@ function submitButtonHandler() {
 	}
 	var score = (numCorrect / questions.length)*100;
 	var result = determineCharacter(score);
-	constructResultCard(result);
+	constructResultDom(result, score);
 }
+
+/**
+ * When the restart button is clicked,
+ * reset the webpage.
+ */
+ function restartButtonHandler() {
+	 location.reload();
+ }
 
 /**
  * For a single question, determine if the user has selected
@@ -222,9 +229,64 @@ function determineCharacter(score) {
  * Given the resulting character, display an appropriate
  * results card.
  */
-function constructResultCard(result) {
-	document.body.remove();
-	console.log(result);
+function constructResultDom(resultChar, score) {
+	// outer card container
+	var card = document.createElement('div');
+	card.classList.add('question');
+	card.classList.add('result');
+	card.setAttribute('data-state', 'next');
+	
+	// image section
+	var imgContainer = document.createElement('div');
+	imgContainer.setAttribute('id', 'img-container');
+	var img = document.createElement('img');
+	img.setAttribute('src', resultChar.image);
+	imgContainer.appendChild(img);
+	card.appendChild(imgContainer);
+	
+	// info text section
+	var infoContainer = document.createElement('div');
+	infoContainer.setAttribute('id', 'info-container');
+	var header = document.createElement('h2');
+	header.innerText = 'Your score is... ' + Math.round(score) + '% correct';
+	infoContainer.appendChild(header);
+	var desc = document.createElement('p');
+	desc.innerText = resultChar.description;
+	infoContainer.appendChild(desc);
+	card.appendChild(infoContainer);
+	
+	document.querySelector('.question-lane').appendChild(card);
+	
+	/* 
+	 * seperate the data-state changes,
+	 * so that the transition looks smooth
+	 */
+	currentQuestion.setAttribute('data-state', 'prev');
+	
+	createResetButton();
+	
+	/* other half of the transition */
+	card.setAttribute('data-state', 'active');	
+}
+
+/**
+ * Replace the buttons in the button bar with
+ * a new restart button
+ */
+function createResetButton() {
+	var icon = document.createElement('span');
+	icon.classList.add('glyphicon');
+	icon.classList.add('glyphicon-repeat');
+	var restartButton = document.createElement('button');
+	restartButton.classList.add('btn');
+	restartButton.appendChild(icon);
+	restartButton.innerHTML = restartButton.innerHTML + 'Restart';
+	restartButton.addEventListener('click', restartButtonHandler);
+	var buttonWrapper = document.createElement('div');
+	buttonWrapper.appendChild(restartButton);
+	var buttonBar = document.querySelector('.button-bar');
+	buttonBar.innerHTML = '';
+	buttonBar.appendChild(buttonWrapper);
 }
 
 processCharacters(charData);

@@ -79,6 +79,22 @@ body {
 	color: white;
 }
 
+.content-lane .question-lane .result {
+	display: flex;
+}
+
+.content-lane .question-lane .result div#img-container {
+	flex: 1;
+}
+
+.content-lane .question-lane .result div#img-container img {
+	width: 100%;
+}
+
+.content-lane .question-lane .result div#info-container {
+	flex: 2;
+}
+
 @media screen and (min-width: 500px) {
 	.content-lane {
 		width: 462px;
