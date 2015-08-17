@@ -1,0 +1,39 @@
+{namespace quizApp}
+
+/**
+ * Generate a question card 
+ * @param questionId The id of this question card
+ * @param question The question object
+ */
+{template .questionCard}
+	<div class="{css question}" data-state="next" id="{$questionId}">
+		<h3>Question {$questionId + 1}</h3>
+		<h2>{$question.question}</h2>
+		<div>
+			{foreach $answer in $question.answers}
+				{let $ansId}
+					{index($answer)}_{$questionId} 
+				{/let}
+				{call .answerChoice}
+					{param questionId: $questionId/}
+					{param ansId: $ansId /}
+					{param ansText: $answer /}
+				{/call}
+			{/foreach}
+		</div>
+	</div>
+{/template}
+
+
+/**
+ * Generate an answer choice
+ * @param questionId The question's id
+ * @param ansId The answer's id
+ * @param ansText The text for the answer choice
+ */
+{template .answerChoice}
+	<div>
+		<input type="radio" name="{$questionId}" id="{$ansId}" />
+		<span>{$ansText}</span>
+	</div>
+{/template}

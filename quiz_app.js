@@ -17,8 +17,8 @@ var Question = function(month, question, answers, correctIndex) {
 
 var processCharacters = function(charJSON) {
 	for (var charIdx in charJSON.characters) {
-		var char = charJSON.characters[charIdx];
-		characters.push(new Character(char.name, char.description, char.percentageThreshold, char.image));
+		var chr = charJSON.characters[charIdx];
+		characters.push(new Character(chr.name, chr.description, chr.percentageThreshold, chr.image));
 	}
 };
 
@@ -39,6 +39,8 @@ var prevButton = document.querySelector('button#prev');
 prevButton.addEventListener('click', prevButtonHandler);
 var nextButton = document.querySelector('button#next');
 nextButton.addEventListener('click', nextButtonHandler);
+var submitButton = document.querySelector('button#submit');
+submitButton.addEventListener('click', submitButtonHandler);
 
 function constructDom() {
 	for(var i in questions) {
@@ -101,6 +103,7 @@ function prevButtonHandler() {
 		prevButton.disabled = true;
 	}
 	nextButton.disabled = false;
+	submitButton.disabled = true;
 }
 
 function nextButtonHandler() {
@@ -111,9 +114,47 @@ function nextButtonHandler() {
 	currentQuestion.setAttribute('data-state', 'active');	
 	if (currentQuestionIndex ===  (questions.length - 1)) {
 		nextButton.disabled = true;
+		submitButton.disabled = false;
 	}
 	prevButton.disabled = false;
-	
+}
+
+function submitButtonHandler() {
+	debugger;
+	var numCorrect = 0;
+	for(var i in questions) {
+		if(correctAnswer(questions[i])) {
+			numCorrect += 1;
+		}
+	}
+	var score = (numCorrect / questions.length)*100;
+	var result = determineCharacter(score);
+	constructResultCard(result);
+}
+
+function correctAnswer(question) {
+	var choices = question.element.querySelectorAll('input');
+	var guess = -1;
+	for(var i in choices) {
+		var choice = choices[i];
+		if (choice.checked) {
+			guess = i;
+		}
+	}
+	return guess === question.correctIndex;
+}
+
+function determineCharacter(score) {
+	for (var i in characters) {
+		if (score - characters[i].percentageThreshold <= 0) {
+			return characters[i];
+		}
+	}
+}
+
+function constructResultCard(result) {
+	document.body.remove();
+	console.log(result);
 }
 
 processCharacters(charData);
